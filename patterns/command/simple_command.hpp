@@ -25,4 +25,6 @@ class SimpleCommand :public Notifier ,public ICommand
         }
 };
 
+
+
 #endif // 

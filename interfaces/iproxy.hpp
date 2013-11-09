@@ -1,5 +1,6 @@
 #ifndef __IPROXY_HPP__
 #define __IPROXY_HPP__
+#include <boost/shared_ptr.hpp>
 
 class IProxy
 {
@@ -40,5 +41,9 @@ class IProxy
         virtual void onRemove( ) =0;
 };
 
+typedef boost::shared_ptr<IProxy> IProxyPtr; 
+
 #endif // 
+
+
 

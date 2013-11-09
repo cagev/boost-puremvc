@@ -13,7 +13,7 @@ public:
      * @param proxyName the name to associate with this <code>IProxy</code> instance.
      * @param proxy an object reference to be held by the <code>Model</code>.
      */
-    virtual void registerProxy( IProxy * proxy ) =0;
+    virtual void registerProxy( IProxyPtr proxy ) =0;
 
     /**
      * Retrieve an <code>IProxy</code> instance from the Model.
@@ -21,7 +21,7 @@ public:
      * @param proxyName
      * @return the <code>IProxy</code> instance previously registered with the given <code>proxyName</code>.
      */
-    virtual IProxy * retrieveProxy( const std::string & proxyName)=0 ;
+    virtual IProxyPtr retrieveProxy( const std::string & proxyName)=0 ;
 
     /**
      * Remove an <code>IProxy</code> instance from the Model.
@@ -29,7 +29,7 @@ public:
      * @param proxyName name of the <code>IProxy</code> instance to be removed.
      * @return the <code>IProxy</code> that was removed from the <code>Model</code>
      */
-    virtual IProxy * removeProxy( const std::string & proxyName) =0;
+    virtual IProxyPtr removeProxy( const std::string & proxyName) =0;
 
     /**
      * Check if a Proxy is registered

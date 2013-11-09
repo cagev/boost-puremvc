@@ -46,10 +46,10 @@ class View : public IView, public Singlton<View>
      * 
      */
     public:
-		typedef boost::unordered_map<std::string, IMediator * > MediatorMap; 
+		typedef boost::unordered_map<std::string, IMediatorPtr> MediatorMap; 
 		typedef MediatorMap::iterator MediatorMapItr; 
 
-        typedef std::vector<IObserver*>  ObserverArray; 
+        typedef std::vector<IObserverPtr>  ObserverArray; 
         typedef ObserverArray::iterator ObserverArrayItr; 
 
         typedef boost::unordered_map<std::string, ObserverArray >  ObserverMap; 
@@ -97,7 +97,7 @@ class View : public IView, public Singlton<View>
          * @param notificationName the name of the <code>INotifications</code> to notify this <code>IObserver</code> of
          * @param observer the <code>IObserver</code> to register
          */
-        virtual void registerObserver ( const std::string & notificationName, IObserver * observer) 
+        virtual void registerObserver ( const std::string & notificationName, IObserverPtr observer) 
         {
 
             ObserverMapItr itr = m_observerMap.find(notificationName); 
@@ -176,7 +176,7 @@ class View : public IView, public Singlton<View>
                 // Notify Observers from the working array				
                 for (size_t i = 0; i < observers.size(); i++) 
                 {
-                    IObserver * pObserver = observers[i];
+                    IObserverPtr pObserver = observers[i];
                     pObserver->notifyObserver( notification );
                 }
             }
@@ -209,7 +209,7 @@ class View : public IView, public Singlton<View>
          * @param mediatorName the name to associate with this <code>IMediator</code> instance
          * @param mediator a reference to the <code>IMediator</code> instance
          */
-        virtual void registerMediator( IMediator * mediator ) 
+        virtual void registerMediator( IMediatorPtr mediator ) 
         {
             // do not allow re-registration (you must to removeMediator fist)
 			if (m_mediatorMap.find(mediator->getName()) != m_mediatorMap.end())
@@ -228,7 +228,7 @@ class View : public IView, public Singlton<View>
                 //var observer:Observer = new Observer( mediator->handleNotification, mediator );
 				NotifyMethod notifyMethod = boost::bind(&IMediator::handleNotification,mediator,_1);
 				NotifyContext notifyContext(this); 
-				Observer * observer  = new Observer(notifyMethod,notifyContext); 
+				IObserverPtr observer  ; observer.reset( new Observer(notifyMethod,notifyContext)); 
 
                 // Register Mediator as Observer for its list of Notification interests
                 for ( size_t i =0;  i<interests.size(); i++ ) 
@@ -247,14 +247,14 @@ class View : public IView, public Singlton<View>
          * @param mediatorName the name of the <code>IMediator</code> instance to retrieve.
          * @return the <code>IMediator</code> instance previously registered with the given <code>mediatorName</code>.
          */
-        virtual IMediator * retrieveMediator( const std::string & mediatorName) 
+        virtual IMediatorPtr retrieveMediator( const std::string & mediatorName) 
         {
 			MediatorMapItr itr = m_mediatorMap.find(mediatorName); 
 			if(itr != m_mediatorMap.end())
 			{
 				return itr->second; 
 			}
-			return NULL;
+			return IMediatorPtr();
         }
 
         /**
@@ -263,12 +263,12 @@ class View : public IView, public Singlton<View>
          * @param mediatorName name of the <code>IMediator</code> instance to be removed.
          * @return the <code>IMediator</code> that was removed from the <code>View</code>
          */
-        virtual IMediator * removeMediator( const std::string & mediatorName) 
+        virtual IMediatorPtr removeMediator( const std::string & mediatorName) 
         {
             // Retrieve the named mediator
 			MediatorMapItr itr = m_mediatorMap.find(mediatorName); 
 
-			IMediator * mediator = NULL;
+			IMediatorPtr mediator ;
             if ( itr != m_mediatorMap.end()) 
             {
 				mediator = itr->second; 

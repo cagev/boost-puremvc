@@ -265,7 +265,7 @@ class Facade : public IFacade, public Singlton<T >
          * @param notificationName the name of the <code>INotification</code> to associate the <code>ICommand</code> with
          * @param commandClassRef a reference to the Class of the <code>ICommand</code>
          */
-		void registerCommand( const std::string & notificationName, ICommand * command) 
+		void registerCommand( const std::string & notificationName, ICommandPtr command) 
         {
             m_controller->registerCommand( notificationName, command );
         }
@@ -297,7 +297,7 @@ class Facade : public IFacade, public Singlton<T >
          * @param proxyName the name of the <code>IProxy</code>.
          * @param proxy the <code>IProxy</code> instance to be registered with the <code>Model</code>.
          */
-        void registerProxy ( IProxy * proxy)	
+        void registerProxy ( IProxyPtr proxy)	
         {
             m_model->registerProxy ( proxy );	
         }
@@ -308,7 +308,7 @@ class Facade : public IFacade, public Singlton<T >
          * @param proxyName the name of the proxy to be retrieved.
          * @return the <code>IProxy</code> instance previously registered with the given <code>proxyName</code>.
          */
-		IProxy * retrieveProxy ( const std::string & proxyName)
+		IProxyPtr retrieveProxy ( const std::string & proxyName)
         {
             return m_model->retrieveProxy ( proxyName );	
         }
@@ -319,9 +319,9 @@ class Facade : public IFacade, public Singlton<T >
          * @param proxyName the <code>IProxy</code> to remove from the <code>Model</code>.
          * @return the <code>IProxy</code> that was removed from the <code>Model</code>
          */
-		IProxy * removeProxy ( const std::string & proxyName)
+		IProxyPtr removeProxy ( const std::string & proxyName)
         {
-			IProxy * proxy  = NULL;
+			IProxyPtr proxy  ;
             if ( m_model != NULL ) 
 				proxy = m_model->removeProxy ( proxyName );	
             return proxy;
@@ -344,7 +344,7 @@ class Facade : public IFacade, public Singlton<T >
          * @param mediatorName the name to associate with this <code>IMediator</code>
          * @param mediator a reference to the <code>IMediator</code>
          */
-        void registerMediator( IMediator * mediator) 
+        void registerMediator( IMediatorPtr mediator) 
         {
             if ( m_view != NULL ) 
 				m_view->registerMediator( mediator );
@@ -356,7 +356,7 @@ class Facade : public IFacade, public Singlton<T >
          * @param mediatorName
          * @return the <code>IMediator</code> previously registered with the given <code>mediatorName</code>.
          */
-		IMediator * retrieveMediator( const std::string & mediatorName)
+		IMediatorPtr retrieveMediator( const std::string & mediatorName)
         {
             return m_view->retrieveMediator( mediatorName ) ;
         }
@@ -367,9 +367,9 @@ class Facade : public IFacade, public Singlton<T >
          * @param mediatorName name of the <code>IMediator</code> to be removed.
          * @return the <code>IMediator</code> that was removed from the <code>View</code>
          */
-		IMediator * removeMediator( const std::string & mediatorName) 
+		IMediatorPtr  removeMediator( const std::string & mediatorName) 
         {
-            IMediator  * mediator = NULL;
+            IMediatorPtr  mediator ; 
             if ( m_view != NULL ) 
 				mediator = m_view->removeMediator( mediatorName );			
             return mediator;

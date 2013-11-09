@@ -57,7 +57,7 @@ class Controller  : public IController, public Singlton<Controller>
         }
 
     public:
-        typedef boost::unordered_map<std::string,ICommand * >  CommandMap; 
+        typedef boost::unordered_map<std::string,ICommandPtr >  CommandMap; 
         typedef CommandMap::iterator CommandMapItr; 
         /**
          * <code>Controller</code> Singleton Factory method.
@@ -87,8 +87,8 @@ class Controller  : public IController, public Singlton<Controller>
             CommandMapItr itr =  m_commandMap.find(note.getName()); 
             if (itr != m_commandMap.end())
             {
-                ICommand * pCmd = itr->second; 
-                if (pCmd != NULL)
+                ICommandPtr  pCmd = itr->second; 
+                if (pCmd )
                 {
                     pCmd->execute(note); 
                 }
@@ -110,14 +110,16 @@ class Controller  : public IController, public Singlton<Controller>
          * @param notificationName the name of the <code>INotification</code>
          * @param commandClassRef the <code>Class</code> of the <code>ICommand</code>
          */
-        virtual void registerCommand( const std::string & notificationName ,ICommand * pCmd) 
+        virtual void registerCommand( const std::string & notificationName ,ICommandPtr pCmd) 
         {
             CommandMapItr itr = m_commandMap.find(notificationName); 
             if (itr == m_commandMap.end())
             {
 				NotifyMethod notifyMethod = boost::bind(&Controller::executeCommand,this,_1); 
 				NotifyContext notifyContext(this); 
-                m_view->registerObserver( notificationName, new Observer( notifyMethod, notifyContext) );
+				IObserverPtr observer ; 
+				observer.reset(new Observer( notifyMethod, notifyContext)); 
+                m_view->registerObserver( notificationName,  observer);
             }
             m_commandMap[ notificationName ] = pCmd;
         }
@@ -160,7 +162,7 @@ class Controller  : public IController, public Singlton<Controller>
         IView * m_view  ;
 		
 		// Mapping of Notification names to Command Class references
-		boost::unordered_map<std::string,ICommand * >  m_commandMap; 
+		boost::unordered_map<std::string,ICommandPtr >  m_commandMap; 
 
 		// Singleton instance
 		//static IController * m_instance ;

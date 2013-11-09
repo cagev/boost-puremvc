@@ -13,25 +13,25 @@ class IFacade : public  INotifier
     public:
         virtual ~IFacade(){}
 
-        virtual void registerProxy(IProxy * proxy)  =0 ;
+        virtual void registerProxy(IProxyPtr proxy)  =0 ;
 
-        virtual IProxy * retrieveProxy(const std::string & proxyName) =0; 
+        virtual IProxyPtr retrieveProxy(const std::string & proxyName) =0; 
 
-        virtual IProxy * removeProxy(const std::string & proxyName) =0; 
+        virtual IProxyPtr removeProxy(const std::string & proxyName) =0; 
 
         virtual bool hasProxy (const std::string & proxyName) =0; 
 
-        virtual void registerCommand(const std::string & noteName, ICommand *) =0; 
+        virtual void registerCommand(const std::string & noteName, ICommandPtr ) =0; 
 
         virtual void removeCommand(const std::string & notificationName) =0;  
 
         virtual bool hasCommand(const std::string & notificationName) = 0; 
 
-        virtual void registerMediator( IMediator * mediator) =0; 
+        virtual void registerMediator( IMediatorPtr  mediator) =0; 
 
-        virtual IMediator *retrieveMediator(const std::string & mediatorName) =0; 
+        virtual IMediatorPtr retrieveMediator(const std::string & mediatorName) =0; 
 
-        virtual IMediator *removeMediator(const std::string & mediatorName) =0; 
+        virtual IMediatorPtr removeMediator(const std::string & mediatorName) =0; 
 
         virtual bool hasMediator(const std::string & mediatorName) =0; 
 
@@ -54,6 +54,7 @@ class IFacade : public  INotifier
 
 };
 
+typedef boost::shared_ptr<IFacade> IFacadePtr; 
 
 #endif // 
 

@@ -3,6 +3,7 @@
 
 #include "notify_method.hpp"
 #include "inotification.hpp"
+#include <boost/shared_ptr.hpp>
 
 
 class IObserver
@@ -44,6 +45,7 @@ public:
 };
 
 
+typedef boost::shared_ptr<IObserver> IObserverPtr; 
 
 #endif //
 

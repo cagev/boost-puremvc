@@ -4,10 +4,12 @@
 #include <string>
 
 #include "inotification.hpp"
-
+#include <boost/shared_ptr.hpp>
 typedef std::vector<std::string> Interests; 
+
 class IMediator;
-typedef std::vector <IMediator*> InterestMediators; 
+typedef boost::shared_ptr<IMediator> IMediatorPtr; 
+typedef std::vector <IMediatorPtr> InterestMediators; 
 
 class IMediator 
 {

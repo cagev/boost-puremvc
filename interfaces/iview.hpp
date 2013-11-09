@@ -4,6 +4,7 @@
 #include <string>
 #include "iobserver.hpp"
 #include "imediator.hpp"
+#include <boost/shared_ptr.hpp>
 
 class IView 
 {
@@ -17,7 +18,7 @@ public:
      * @param notificationName the name of the <code>INotifications</code> to notify this <code>IObserver</code> of
      * @param observer the <code>IObserver</code> to register
      */
-    virtual void registerObserver( const std::string & notificationName,IObserver *observer) =0;
+    virtual void registerObserver( const std::string & notificationName,IObserverPtr observer) =0;
 
     /**
      * Remove a group of observers from the observer list for a given Notification name.
@@ -58,7 +59,7 @@ public:
      * @param mediatorName the name to associate with this <code>IMediator</code> instance
      * @param mediator a reference to the <code>IMediator</code> instance
      */
-    virtual void registerMediator( IMediator *mediator)  =0;
+    virtual void registerMediator( IMediatorPtr mediator)  =0;
 
     /**
      * Retrieve an <code>IMediator</code> from the <code>View</code>.
@@ -66,7 +67,7 @@ public:
      * @param mediatorName the name of the <code>IMediator</code> instance to retrieve.
      * @return the <code>IMediator</code> instance previously registered with the given <code>mediatorName</code>.
      */
-    virtual IMediator * retrieveMediator(const std::string &  mediatorName)  =0;
+    virtual IMediatorPtr retrieveMediator(const std::string &  mediatorName)  =0;
 
     /**
      * Remove an <code>IMediator</code> from the <code>View</code>.
@@ -74,7 +75,7 @@ public:
      * @param mediatorName name of the <code>IMediator</code> instance to be removed.
      * @return the <code>IMediator</code> that was removed from the <code>View</code>
      */
-    virtual IMediator * removeMediator( const std::string & mediatorName)  =0;
+    virtual IMediatorPtr removeMediator( const std::string & mediatorName)  =0;
 
     /**
      * Check if a Mediator is registered or not
@@ -86,6 +87,7 @@ public:
 
 };
 
+typedef boost::shared_ptr<IView> IViewPtr; 
 
 #endif // 
 

@@ -7,7 +7,7 @@ class IController
 {
     public:
         virtual ~IController(){}
-        virtual void registerCommand(const std::string & notificationName, ICommand * ) =0; 
+        virtual void registerCommand(const std::string & notificationName, ICommandPtr ) =0; 
 
         virtual void executeCommand(const INotification & notification) =0; 
         

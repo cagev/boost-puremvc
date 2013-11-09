@@ -3,9 +3,11 @@
 
 #include <string>
 
-class IMediator; 
+#include "interfaces/imediator.hpp"
 
-typedef std::vector<IMediator*> ObserverMediators; 
+//class IMediatorPtr; 
+
+typedef std::vector<IMediatorPtr> ObserverMediators; 
 typedef ObserverMediators::iterator ObserverMediatorsItr; 
 class INotifier
 {

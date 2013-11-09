@@ -1,13 +1,13 @@
-#include "../interfaces/inotification.hpp"
-#include "../interfaces/imediator.hpp"
-#include "../interfaces/ifacade.hpp"
-#include "../interfaces/icontroller.hpp"
-#include "../core/view.hpp"
-#include "../core/model.hpp"
-#include "../core/controller.hpp"
-#include "../patterns/facade/facade.hpp"
-#include "../patterns/proxy/proxy.hpp"
-#include "../patterns/command/simple_command.hpp"
+#include "interfaces/inotification.hpp"
+#include "interfaces/imediator.hpp"
+#include "interfaces/ifacade.hpp"
+#include "interfaces/icontroller.hpp"
+#include "core/view.hpp"
+#include "core/model.hpp"
+#include "core/controller.hpp"
+#include "patterns/facade/facade.hpp"
+#include "patterns/proxy/proxy.hpp"
+#include "patterns/command/simple_command.hpp"
 
 //#include "../test/AppFacade.hpp"
 #include <iostream>
@@ -127,28 +127,32 @@ int main(int argc, char * argv[])
 	//IModel * mymodel = Model::getInstance();
 
 	//IController * mycontroller = Controller::getInstance(); 
-
-	MyCommand *pCmd = new MyCommand(); 
+	ICommandPtr pCmd   ; 
+	pCmd.reset(new MyCommand()); 
 
 	AppFacade* facade = AppFacade::getInstance(); 
-	MyMediator * mediator = new MyMediator(); 
-	MyMediator2 * mediator2 = new MyMediator2(); 
+	IMediatorPtr mediator ; 
+	mediator.reset(new MyMediator()); 
+
+	IMediatorPtr  mediator2 ;
+	mediator2.reset(new MyMediator2()); 
+
 	facade->registerMediator(mediator); 
 	facade->registerMediator(mediator2); 
 	facade->registerCommand("Startup",pCmd);
 
-    facade->registerProxy(new MyProxy()); 
+	IProxyPtr pProxy; 
+	pProxy.reset(new MyProxy()); 
+    facade->registerProxy(pProxy); 
 
 
-    IProxy * pPxy = facade->retrieveProxy("MyProxy");
+    IProxyPtr pPxy = facade->retrieveProxy("MyProxy");
     std::cout << "Proxy :"<< pPxy->getName() <<std::endl; 
 
 	facade->sendNotification("Startup");
 	ObserverMediators obers; 
 	obers.push_back(mediator);
 	facade->sendNotificationTo("walk",obers);
-
 	facade->startup(); 
-
 	return 0; 
 }

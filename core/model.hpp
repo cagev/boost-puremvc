@@ -54,7 +54,7 @@ class Model : public IModel, public Singlton<Model>
             initializeModel();	
         }
     public:
-        typedef boost::unordered_map<std::string,IProxy * > PROXY_MAP; 
+        typedef boost::unordered_map<std::string,IProxyPtr  > PROXY_MAP; 
         typedef PROXY_MAP::iterator  PROXY_MAP_ITR; 
 
         /**
@@ -85,7 +85,7 @@ class Model : public IModel, public Singlton<Model>
          * 
          * @param proxy an <code>IProxy</code> to be held by the <code>Model</code>.
          */
-        void registerProxy( IProxy * proxy ) 
+        void registerProxy( IProxyPtr  proxy ) 
         {
             m_proxyMap[ proxy->getName() ] = proxy;
             proxy->onRegister();
@@ -97,14 +97,14 @@ class Model : public IModel, public Singlton<Model>
          * @param proxyName
          * @return the <code>IProxy</code> instance previously registered with the given <code>proxyName</code>.
          */
-        IProxy *retrieveProxy( const std::string & proxyName)
+        IProxyPtr retrieveProxy( const std::string & proxyName)
         {
             PROXY_MAP_ITR itr = m_proxyMap.find(proxyName); 
             if (itr != m_proxyMap.end())
             {
                 return itr->second; 
             }
-            return NULL; 
+            return IProxyPtr(); 
         }
 
         /**
@@ -124,11 +124,11 @@ class Model : public IModel, public Singlton<Model>
          * @param proxyName name of the <code>IProxy</code> instance to be removed.
          * @return the <code>IProxy</code> that was removed from the <code>Model</code>
          */
-        IProxy *removeProxy( const std::string & proxyName) 
+        IProxyPtr removeProxy( const std::string & proxyName) 
         {
 
             PROXY_MAP_ITR itr = m_proxyMap.find(proxyName); 
-            IProxy * proxy = NULL; 
+            IProxyPtr  proxy ; 
             if (itr != m_proxyMap.end())
             {
                 proxy = itr->second; 
