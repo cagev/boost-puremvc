@@ -29,7 +29,7 @@ class Proxy : public Notifier , public IProxy
         /**
          * Set the data object
          */
-        virtual void setData(void *  data ) 
+        virtual void setData(IProxy::Context  data ) 
         {
             m_data = data;
         }
@@ -37,7 +37,7 @@ class Proxy : public Notifier , public IProxy
         /**
          * Get the data object
          */
-        virtual void * getData() 
+        virtual IProxy::Context getData() 
         {
             return m_data;
         }		
@@ -58,7 +58,7 @@ class Proxy : public Notifier , public IProxy
         std::string m_proxyName;
 
         // the data object
-        void *  m_data;
+		IProxy::Context  m_data;
 };
 
 

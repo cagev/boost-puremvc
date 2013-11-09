@@ -47,7 +47,7 @@ class Notification : public INotification
         /**
          * Set the body of the <code>Notification</code> instance.
          */
-        void setBody( void* body )
+        void setBody(INotification::Context body )
         {
             this->m_body = body;
         }
@@ -57,7 +57,7 @@ class Notification : public INotification
          * 
          * @return the body object. 
          */
-        void*  getBody() 
+		INotification::Context getBody() 
         {
             return m_body;
         }
@@ -98,7 +98,7 @@ class Notification : public INotification
         // the type of the notification instance
         std::string m_type;
         // the body of the notification instance
-        void*  m_body;
+        Context  m_body;
 };
 
 

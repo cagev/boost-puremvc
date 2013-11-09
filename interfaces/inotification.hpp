@@ -1,12 +1,14 @@
 #ifndef __INOTIFICATION_HPP__
 #define __INOTIFICATION_HPP__
 #include <string>
+#include <boost/any.hpp>
 
 
 class INotification
 {
 
 public:
+	typedef boost::any Context; 
     virtual ~INotification()
     {
     }
@@ -19,12 +21,12 @@ public:
     /**
      * Set the body of the <code>INotification</code> instance
      */
-    virtual void setBody( void *  ) =0;
+    virtual void setBody( INotification::Context  ) =0;
 
     /**
      * Get the body of the <code>INotification</code> instance
      */
-    virtual void * getBody()=0;
+    virtual INotification::Context getBody()=0;
 
     /**
      * Set the type of the <code>INotification</code> instance

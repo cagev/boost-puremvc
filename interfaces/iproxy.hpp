@@ -1,11 +1,14 @@
 #ifndef __IPROXY_HPP__
 #define __IPROXY_HPP__
 #include <boost/shared_ptr.hpp>
+#include <boost/any.hpp>
 
 class IProxy
 {
 
+
     public:
+		typedef boost::any Context; 
         virtual ~IProxy()
         {
         }
@@ -21,14 +24,14 @@ class IProxy
          * 
          * @param data the data object
          */
-        virtual void setData( void *data) =0;
+        virtual void setData( IProxy::Context data) =0;
 
         /**
          * Get the data object
          * 
          * @return the data as type Object
          */
-        virtual void * getData() =0; 
+        virtual IProxy::Context getData() =0; 
 
         /**
          * Called by the Model when the Proxy is registered
