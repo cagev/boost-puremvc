@@ -11,11 +11,10 @@ class Proxy : public Notifier , public IProxy
         /**
          * Constructor
          */
-        Proxy( const std::string & proxyName, void * data = NULL ) 
+        Proxy( const std::string & proxyName, IProxy::Context data = IProxy::Context() ) 
         {
             this->m_proxyName = (!proxyName.empty())?proxyName:"Proxy"; 
-            if (data != NULL) 
-                setData(data);
+			setData(data);
         }
 
         /**
