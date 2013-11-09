@@ -1,9 +1,9 @@
 #ifndef __CONTROLLER_HPP__
 #define __CONTROLLER_HPP__
-#include "../interfaces/icontroller.hpp"
-#include "../utils/singlton.hpp"
+#include "interfaces/icontroller.hpp"
+#include "utils/singlton.hpp"
 #include <boost/bind.hpp>
-using namespace boost; 
+#include <boost/unordered_map.hpp>
 
 
 /**
@@ -34,11 +34,9 @@ using namespace boost;
  * registrations. 
  * */
 
-#include "../interfaces/icommand.hpp"
-#include "../utils/hash_map.hpp"
-#include "../core/view.hpp"
+#include "interfaces/icommand.hpp"
+#include "core/view.hpp"
 
-using namespace HASH_MAP_NAMESPACE;
 
 class Controller  : public IController, public Singlton<Controller>
 {
@@ -59,7 +57,7 @@ class Controller  : public IController, public Singlton<Controller>
         }
 
     public:
-        typedef hash_map<std::string,ICommand * >  CommandMap; 
+        typedef boost::unordered_map<std::string,ICommand * >  CommandMap; 
         typedef CommandMap::iterator CommandMapItr; 
         /**
          * <code>Controller</code> Singleton Factory method.
@@ -162,7 +160,7 @@ class Controller  : public IController, public Singlton<Controller>
         IView * m_view  ;
 		
 		// Mapping of Notification names to Command Class references
-        hash_map<std::string,ICommand * >  m_commandMap; 
+		boost::unordered_map<std::string,ICommand * >  m_commandMap; 
 
 		// Singleton instance
 		//static IController * m_instance ;

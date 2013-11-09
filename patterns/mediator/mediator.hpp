@@ -2,8 +2,8 @@
 #define __MEDIATOR_HPP__
 #include <vector>
 #include <string>
-#include "../interfaces/imediator.hpp"
-#include "../patterns/observer/notifier.hpp"
+#include "interfaces/imediator.hpp"
+#include "patterns/observer/notifier.hpp"
 
 class Mediator : public IMediator, public Notifier
 {

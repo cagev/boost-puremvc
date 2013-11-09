@@ -121,12 +121,12 @@
 * @see org.puremvc.as3.patterns.command.MacroCommand MacroCommand
 */
 
-#include "./core/controller.hpp"
-#include "./core/model.hpp"
-#include "./patterns/observer/notification.hpp"
-#include "./interfaces/ifacade.hpp"
-#include "./utils/singlton.hpp"
-#include "../patterns/observer/facade_holder.hpp"
+#include "core/controller.hpp"
+#include "core/model.hpp"
+#include "patterns/observer/notification.hpp"
+#include "interfaces/ifacade.hpp"
+#include "utils/singlton.hpp"
+#include "patterns/observer/facade_holder.hpp"
 
 template<class T>
 class Facade : public IFacade, public Singlton<T >

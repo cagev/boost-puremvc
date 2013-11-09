@@ -1,11 +1,10 @@
 #ifndef __VIEW_HPP__
 #define __VIEW_HPP__
-#include "../utils/hash_map.hpp"
 #include <list>
 #include <vector>
 #include <boost/bind.hpp>
+#include <boost/unordered_map.hpp>
 using namespace boost; 
-
 
 
 /**
@@ -28,12 +27,11 @@ using namespace boost;
  * @see org.puremvc.as3.patterns.observer.Notification Notification
  */
 
-#include "../interfaces/iview.hpp"
-#include "../patterns/observer/obversver.hpp"
-#include "../patterns/mediator/mediator.hpp"
-#include "../utils/singlton.hpp"
+#include "interfaces/iview.hpp"
+#include "patterns/observer/obversver.hpp"
+#include "patterns/mediator/mediator.hpp"
+#include "utils/singlton.hpp"
 
-using namespace HASH_MAP_NAMESPACE;
 class View : public IView, public Singlton<View>
 {
 
@@ -50,13 +48,13 @@ class View : public IView, public Singlton<View>
      * 
      */
     public:
-		typedef hash_map<std::string, IMediator * > MediatorMap; 
+		typedef boost::unordered_map<std::string, IMediator * > MediatorMap; 
 		typedef MediatorMap::iterator MediatorMapItr; 
 
         typedef std::vector<IObserver*>  ObserverArray; 
         typedef ObserverArray::iterator ObserverArrayItr; 
 
-        typedef hash_map<std::string, ObserverArray >  ObserverMap; 
+        typedef boost::unordered_map<std::string, ObserverArray >  ObserverMap; 
         typedef ObserverMap::iterator ObserverMapItr; 
 
         View( )

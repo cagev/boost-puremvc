@@ -1,10 +1,9 @@
 #ifndef __TYPE_TO_INDEX_HPP__ 
 #define __TYPE_TO_INDEX_HPP__ 
 
-#include "hash_map.hpp"
 #include <vector>
+#include <boost/unordered_map.hpp>
 
-using namespace HASH_MAP_NAMESPACE; 
 
 template <class T>
 struct TypeItem 
@@ -21,7 +20,7 @@ public:
     typedef std::vector<TypeItem<T> > TypeItemVector; 
     typedef TypeItemVector::iterator TypeItemVectorItr; 
 
-    typedef hash_map<T,int>  TypeItemMap; 
+    typedef boost::unordered_map<T,int>  TypeItemMap; 
     typedef TypeItemMap::iterator TypeItemMapItr; 
 
 

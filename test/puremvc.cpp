@@ -1,4 +1,3 @@
-#include "utils/hash_func.hpp"
 #include "../interfaces/inotification.hpp"
 #include "../interfaces/imediator.hpp"
 #include "../interfaces/ifacade.hpp"
@@ -12,8 +11,6 @@
 
 //#include "../test/AppFacade.hpp"
 #include <iostream>
-
-
 
 
 class AppFacade : public Facade<AppFacade>

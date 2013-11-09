@@ -1,7 +1,7 @@
 #ifndef __MODEL_HPP__
 #define __MODEL_HPP__
-#include "../utils/hash_map.hpp"
-#include "../utils/singlton.hpp"
+#include "utils/singlton.hpp"
+#include <boost/unordered_map.hpp>
 
 
 /**
@@ -30,7 +30,7 @@
  * @see org.puremvc.as3.patterns.proxy.Proxy Proxy
  * @see org.puremvc.as3.interfaces.IProxy IProxy
  */
-#include "../interfaces/imodel.hpp"
+#include "interfaces/imodel.hpp"
 
 class Model : public IModel, public Singlton<Model>
 {
@@ -54,7 +54,7 @@ class Model : public IModel, public Singlton<Model>
             initializeModel();	
         }
     public:
-        typedef hash_map<std::string,IProxy * > PROXY_MAP; 
+        typedef boost::unordered_map<std::string,IProxy * > PROXY_MAP; 
         typedef PROXY_MAP::iterator  PROXY_MAP_ITR; 
 
         /**
