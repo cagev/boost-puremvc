@@ -4,8 +4,6 @@
 #include <vector>
 #include <boost/bind.hpp>
 #include <boost/unordered_map.hpp>
-using namespace boost; 
-
 
 /**
  * A Singleton <code>IView</code> implementation.
