@@ -6,28 +6,18 @@ class Singlton
 {
     protected:
 		Singlton()  {}
-    public:
-        static T* getInstance() 
-        {   
-            if (s_ins == 0) 
-            { 
-                //s_ins = new(s_insbuf)T(); 
-                s_ins = new T(); 
-            }
-            return s_ins; 
-        }
+	public:
+		static T* getInstance() 
+		{   
+			static T _ins; 
+			return &_ins; 
+		}
 
         ~Singlton()
         {
-            //if (s_ins) { s_ins->~T(); }
         }
-    private:
-        static T * s_ins ;
-        //static char  s_insbuf[sizeof(T)];
 };
 
-//template <class T> char Singlton<T>::s_insbuf[sizeof(T)];
-template <class T> T* Singlton<T>::s_ins =0; 
 
 
 #endif // 
